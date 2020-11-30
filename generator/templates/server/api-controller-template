@@ -1,0 +1,78 @@
+/**
+ * Using Rails-like standard naming convention for endpoints.
+ * POST    /<%=name%>               ->  create
+ * GET     /<%=name%>               ->  getAll
+ * GET     /<%=name%> /:id          ->  getByID
+ * DELETE  /<%=name%> /:id          ->  removeByID
+ * PATCH   /<%=name%> /:id          ->  updateByID
+ */
+
+const _ = require('lodash');
+const {ObjectID} = require('mongodb');
+const GLOBAL_RESPONSES = require("../global/responses");
+const LOCAL_RESPONSES = require("./responses");
+const MODEL_PATH = './model/<%=name%>';
+const MODEL_SERVICE = require(MODEL_PATH);
+
+
+exports.create = function(req, res) {
+    let ModelInstance = new MODEL_SERVICE();
+    ModelInstance.name = req.body.name;  // set the model name (comes from the request)
+    ModelInstance.save().then((<%=name%> ) => {
+        let resultResponse = GLOBAL_RESPONSES.CREATE_SUCCESS;
+        resultResponse.resourceId = <%=name%>._id;
+        res.json({resultResponse});
+    }).catch((e) => {
+        res.send(e);
+    });
+};
+
+
+exports.getAll = function (req, res) {
+	MODEL_SERVICE.find((err,<%=name%>_result) => {
+        res.json(<%=name%>_result);
+	}).catch((e) => {
+        res.json(e);
+    });
+}
+
+
+exports.getByID = function (req, res) {
+	MODEL_SERVICE.findById(req.params.<%=name%>_id).then((<%=name%>) =>  {
+        if(!<%=name%>){
+            res.json(LOCAL_RESPONSES.<%=upperCaseModelName%>_NOT_FOUND);
+        }
+		res.json(<%=name%>);
+	}).catch((err) => {
+        res.send(err);
+    });
+}
+
+
+exports.removeByID = function (req, res) {
+    MODEL_SERVICE.remove({
+			_id: req.params.<%=name%>_id
+	}).then((result) => {
+        res.json(GLOBAL_RESPONSES.DELETE_SUCCESS);
+	}).catch((err) => {
+        res.send(err);
+    });
+}
+
+
+exports.updateByID = function (req, res) {
+    MODEL_SERVICE.findById(req.params.<%=name%>_id).then((<%=name%>) => {
+            if(!<%=name%>){
+                res.json(GLOBAL_RESPONSES.NOT_FOUND);
+            }
+            <%=name%>.name = req.body.name;
+            <%=name%>.save(function(err) {
+				if (err)
+					res.send(err);
+
+				res.json(GLOBAL_RESPONSES.UPDATE_SUCCESS);
+			});
+    }).catch((err) => {
+        res.send(err);
+    });
+}

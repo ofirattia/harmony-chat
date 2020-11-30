@@ -1,0 +1,17 @@
+import { defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+
+    /* EXAMPLE CODE
+
+    postsTitle: {
+        id: 'posts.title',
+        defaultMessage: 'Posts',
+        description: 'Posts page title',
+    }
+
+    */
+
+});
+
+export default messages;

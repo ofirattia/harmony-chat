@@ -1,0 +1,17 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { createField } from '../../../base/features/base-redux-form-field';
+
+const component = ({ meta: { touched, error, warning }, input }) => {
+
+    return (
+        <div>
+          <!-- write here your own core component -->
+        </div>
+    );
+
+};
+
+export default createField(component, {
+  // Send here your PropTypes
+});

@@ -1,0 +1,16 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const <%= name %> = (props) => {
+    return (
+        <div>
+          <!-- write here your own core component -->
+        </div>
+    );
+};
+
+<%= name %>.propTypes = {
+    // add here your prop types
+};
+
+export default <%= name %>;

@@ -1,0 +1,47 @@
+import React, { Component } from 'react';
+import { baseConnectForm } from '../../base/features/base-redux-react-connect';
+// import <%= className %>Actions from '../../redux/<%= name %>';
+
+class <%= className %> extends Component {
+    render() {
+
+        return (
+            <form onSubmit={this.props.handleSubmit(this.handleSubmit.bind(this))} >
+
+            </form>
+        );
+
+    }
+
+    handleSubmit(props) {
+        // handle submit here
+    }
+
+    validate(values) {
+        const errors = {};
+
+        /* EXAMPLE CODE
+        if (!values.title) {
+            errors.title = 'someTitle';
+        }
+        */
+
+        return errors;
+    }
+}
+
+
+export default baseConnectForm(<%= className %>,
+    (state) => {
+        return {
+
+        }
+    },
+    {
+
+    },
+    {
+        form : '<%= className %>Form',
+        fields: []
+    }
+);

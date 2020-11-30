@@ -1,0 +1,119 @@
+/**
+ * Using Rails-like standard naming convention for endpoints.
+ * POST    /<%=name%>               ->  create
+ * GET     /<%=name%>               ->  getAll
+ * GET     /<%=name%> /:id          ->  getByID
+ * DELETE  /<%=name%> /:id          ->  removeByID
+ * PATCH   /<%=name%> /:id          ->  updateByID
+ */
+
+const _ = require('lodash');
+const {ObjectID} = require('mongodb');
+const GLOBAL_RESPONSES = require("../global/responses");
+const LOCAL_RESPONSES = require("./responses");
+const MODEL_PATH = './model/<%=name%>';
+const MODEL_SERVICE = require(MODEL_PATH);
+
+
+exports.create = function(req, res) {
+    let ModelInstance = MODEL_SERVICE;
+    // force: true will drop the table if it already exists
+    ModelInstance.sync({force: false}).then(function () {
+      // Table created
+      return ModelInstance.create({
+        name : req.body.name
+      }).then((<%=name%>) => {
+            let resultResponse = GLOBAL_RESPONSES.CREATE_SUCCESS;
+			resultResponse.resourceId = <%=name%>.dataValues.id;
+			res.json({resultResponse});
+      }).catch((err) =>{
+          res.send(err);
+      });
+    });
+};
+
+
+exports.getAll = function (req, res) {
+    let ModelInstance = MODEL_SERVICE;
+    // force: true will drop the table if it already exists
+    ModelInstance.sync({force: false}).then(function () {
+      // Table created
+      return ModelInstance.findAll({
+            limit: 40
+      }).then((<%=name%>_result) => {
+            if(!<%=name%>_result || (<%=name%>_result && <%=name%>_result.length == 0)){
+                res.json(LOCAL_RESPONSES.<%=upperCaseModelName%>_NOT_FOUND);
+            }
+            res.json(<%=name%>_result);
+      }).catch((err) =>{
+          res.send(err);
+      });
+
+    });
+	
+}
+
+
+exports.getByID = function (req, res) {
+	let ModelInstance = MODEL_SERVICE;
+    // force: true will drop the table if it already exists
+    ModelInstance.sync({force: false}).then(function () {
+      // Table created
+      return ModelInstance.findOne({
+            where: {
+                id: req.params.<%=name%>_id,
+            },
+      }).then((<%=name%>) => {
+            if(!<%=name%>){
+                res.json(LOCAL_RESPONSES.<%=upperCaseModelName%>_NOT_FOUND);
+            }
+            res.json(<%=name%>);
+      }).catch((err) =>{
+          res.send(err);
+      });
+
+    });
+}
+
+
+exports.removeByID = function (req, res) {
+    let ModelInstance = MODEL_SERVICE;
+    // force: true will drop the table if it already exists
+    ModelInstance.sync({force: false}).then(function () {
+      // Table created
+      return ModelInstance.destroy({
+            where: {
+                id: req.params.<%=name%>_id,
+            },
+      }).then((results) => {
+             res.json(GLOBAL_RESPONSES.DELETE_SUCCESS);
+      }).catch((err) =>{
+          res.send(err);
+      });
+
+    });
+}
+
+
+exports.updateByID = function (req, res) {
+    let ModelInstance = MODEL_SERVICE;
+    // force: true will drop the table if it already exists
+    ModelInstance.sync({force: false}).then(function () {
+        ModelInstance.find({ where: { id: req.params.<%=name%>_id } }).then((model) =>
+        {
+        // Check if record exists in db
+        if (model) {
+          model.updateAttributes({
+            name: req.body.name
+          })
+          .then(() => {
+            res.json(GLOBAL_RESPONSES.UPDATE_SUCCESS);
+          }).catch((err) => {
+            res.send(err);
+          });
+        }
+      }).catch((err) => {
+            res.send(LOCAL_RESPONSES.<%=upperCaseModelName%>_NOT_FOUND);  
+      })
+    });
+}

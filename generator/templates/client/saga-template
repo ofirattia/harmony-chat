@@ -1,0 +1,15 @@
+import { call, put } from 'redux-saga/effects';
+import * as ActionTypes from '../../actions';
+
+export function* mySaga(api, action) {
+
+    /* EXAMPLE CODE
+    try {
+        const response = yield call(api.fetchPost, action.payload);
+        yield put({type: ActionTypes.FETCH_POST_SUCCESS, post: response.data});
+    } catch (e) {
+        yield put({type: ActionTypes.FETCH_POST_ERROR, errorMessage: e});
+    }
+    */
+
+}

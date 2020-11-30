@@ -1,0 +1,7 @@
+
+const <%= name %> = {
+    // Gulp Inject Locales Here
+
+};
+
+export default <%= name %>;

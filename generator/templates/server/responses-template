@@ -1,0 +1,5 @@
+const LOCAL_RESPONSES = {
+    "<%=upperCaseModelName%>_NOT_FOUND"      : {"message":"<%=capitalLetterModelName%> was not found"}
+}
+
+module.exports = LOCAL_RESPONSES;

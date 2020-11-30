@@ -1,0 +1,16 @@
+var Sequelize     = require('sequelize');
+const config      = require('../../../config');
+var sequelize = new Sequelize(config.sql.db, config.sql.user, config.sql.pass);
+var <%=capitalLetterModelName%>Schema = sequelize.define('<%=capitalLetterModelName%>', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+	name: Sequelize.STRING
+	
+}, {
+  freezeTableName: true // Model tableName will be the same as the model name
+});
+
+module.exports = <%=capitalLetterModelName%>Schema;

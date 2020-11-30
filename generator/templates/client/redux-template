@@ -1,0 +1,40 @@
+import Immutable from 'seamless-immutable';
+import { createReducer, createActions } from 'reduxsauce';
+
+/* ------------- Types and Action Creators ------------- */
+
+const { Types, Creators } = createActions({
+	myAction: ['data']
+});
+
+export const <%= name %>Types = Types;
+export default Creators;
+
+/* ------------- Initial State ------------- */
+
+const INITIAL_STATE = Immutable({
+
+});
+
+/* ------------- Selectors ------------- */
+
+export const <%= name %>Selector = {
+
+};
+
+/* ------------- Reducers ------------- */
+
+/* EXAMPLE
+	const myReducer = (state, action ) => {
+		const { data } = action;
+		return state.merge({ data });
+	};
+*/
+
+/* ------------- Hookup Reducers To Types ------------- */
+
+export const reducer = createReducer(INITIAL_STATE, {
+	/* EXAMPLE
+		[Types.MY_ACTION]: myReducer
+	*/
+});

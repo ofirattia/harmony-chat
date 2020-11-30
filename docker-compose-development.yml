@@ -1,0 +1,19 @@
+web:
+  build: .
+  dockerfile: Dockerfile-development
+  links:
+   - db
+  ports:
+   - "8080:8080"
+   - "3030:3030"
+  volumes:
+   - .:/usr/src/app/
+   - /usr/src/app/node_modules
+  environment:
+   NODE_ENV: development
+   MONGO_URL: mongodb://db:27017/db
+db:
+  image: mongo:latest
+  ports:
+   - "27017:27017"
+

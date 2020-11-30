@@ -1,0 +1,12 @@
+/node_modules
+/client/dist
+npm-debug.log
+/client/.DS_Store
+.DS_Store
+
+# IntelliJ
+*.iml
+/.idea
+package-lock.json
+
+

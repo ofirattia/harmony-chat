@@ -1,0 +1,60 @@
+const {Router} = require('express');
+const {authenticate} = require('./../../middleware/authenticate');
+
+const controller = require('./<%=name%>.controller');
+
+var router = new Router();
+
+/**
+ * @api {post} /<%=name%> create
+ * @apiName Create<%=capitalLetterModelName%>
+ * @apiGroup <%=capitalLetterModelName%>
+ *
+ * @apiParam {String} name .
+ *
+ * @apiSuccess {Object} - contain message and resource id.
+ */
+router.post('/', controller.create);
+
+/**
+ * @api {get} /<%=name%> all
+ * @apiName GetAll<%=capitalLetterModelName%>
+ * @apiGroup <%=capitalLetterModelName%>
+ * @apiSuccess {Object} - contain items from resource.
+ */
+router.get('/',  controller.getAll);
+
+/**
+ * @api {get} /<%=name%>/:id  get
+ * @apiName Get<%=capitalLetterModelName%>ById
+ * @apiGroup <%=capitalLetterModelName%>
+ *
+ * @apiParam {String} id .
+ *
+ * @apiSuccess {Object} - resource.
+ */
+router.get('/:<%=name%>_id',  controller.getByID);
+
+/**
+ * @api {delete} /<%=name%>/:id  delete
+ * @apiName Remove<%=capitalLetterModelName%>ById
+ * @apiGroup <%=capitalLetterModelName%>
+ *
+ * @apiParam {String} id .
+ *
+ * @apiSuccess {Object} - contain message.
+ */
+router.delete('/:<%=name%>_id',  controller.removeByID);
+
+/**
+ * @api {put} /<%=name%>/:id  update
+ * @apiName Update<%=capitalLetterModelName%>ById
+ * @apiGroup <%=capitalLetterModelName%>
+ *
+ * @apiParam {String} id .
+ *
+ * @apiSuccess {Object} - contain message.
+ */
+router.put('/:<%=name%>_id', controller.updateByID);
+
+module.exports = router;
