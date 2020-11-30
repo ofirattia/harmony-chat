@@ -1,8 +1,4 @@
-<h1 align="center"><strong>harmony-boilerplate</strong></h1>
-
-<div align="center"  >
-<img style="width:30%" src="https://github.com/harmony-framework/harmony-boilerplate/blob/master/harmony-logo.png" alt="react boilerplate banner" align="center" />
-</div>
+<h1 align="center"><strong>harmony-chat</strong></h1>
 
 <br/>
 
